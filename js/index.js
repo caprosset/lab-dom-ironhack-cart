@@ -2,46 +2,58 @@ function deleteItem(event){
 
 }
 
-function getTotalPrice() {
-  var productPrice = document.querySelector('.product-price').innerHTML
-  productPrice = Number(productPrice.slice(1))
-  
-  var productQuantity = document.getElementsByTagName('input')[0].value
-
-  var totalPrice = productPrice * productQuantity
-  totalPrice = `$ ${parseFloat(totalPrice).toFixed(2)}`
-
-  var displayTotalPrice =  document.getElementsByClassName('total-price')[0]
-   displayTotalPrice.innerHTML = totalPrice
-
-  return totalPrice //+ totalPrice2
-}
-
 
 
 function getPriceByProduct(itemNode){
-  // var productPrice = document.querySelectorAll('.product-price')
-  // var productQuantity = document.getElementsByTagName('input')[0].value
+  var productPrice = itemNode.querySelectorAll('.product-price');
+  var productQuantity = itemNode.getElementsByTagName('input');
+  
+  var arrPrices = [];
+  var arrQties = [];
 
+  for(var i =0 ; i < productPrice.length; i++){
+    var priceHolder = productPrice[i].innerHTML;
+    priceHolder = Number(priceHolder.slice(1));
+    arrPrices.push(priceHolder);
+  }
+
+  for(var j = 0; j < productQuantity.length; j++) {
+    var qtyHolder = Number(productQuantity[j].value);
+    arrQties.push(qtyHolder);
+  }
+
+  // console.log(arrPrices, arrQties);
+
+  var length = arrPrices.length;
+  var sum = 0;
+
+  console.log(displayTotalPrice);
+
+  for(var i=0; i<length; i++) {
+    var totalPriceByProduct = arrPrices[i] * arrQties[i];
+
+    var displayTotalPrice =  document.getElementsByClassName('total-price')[i];
+    displayTotalPrice.innerHTML = "$" + parseFloat(totalPriceByProduct).toFixed(2);
+    //sum += totalPriceByProduct;
+  }
+  return totalPriceByProduct;
+  //sum = parseFloat(sum).toFixed(2)
+  //return sum;
 }
+console.log(getPriceByProduct());
+
+
 
 function updatePriceByProduct(productPrice, index){
-
+  //code
 }
 
 
 
-
-//calculate total price
-var productPrice = document.querySelector('.product-price',).innerHTML
-var productQuantity = document.getElementsByTagName('input')[0].value
-var calculatePriceButton = document.getElementById('calc-prices-button');
-console.log(productQuantity)
-calculatePriceButton.addEventListener('click', getTotalPrice) 
-
-
-
-
+function getTotalPrice() {
+  //code
+  return totalPrice
+}
 
 
 
@@ -75,7 +87,7 @@ window.onload = function(){
   var calculatePriceButton = document.getElementById('calc-prices-button');
 
 
-  calculatePriceButton.onclick = getTotalPrice;
+calculatePriceButton.onclick = getPriceByProduct;
 //   createItemButton.onclick = createNewItem;
 
 //   for(var i = 0; i<deleteButtons.length ; i++){
